@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ETAP Advance Training - ELP</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0f4c75 0%, #3282b8 50%, #bbe1fa 100%);
+            color: #fff;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        .background-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(255,255,255,0.1) 1px, transparent 1px),
+                linear-gradient(45deg, rgba(255,255,255,0.05) 25%, transparent 25%),
+                linear-gradient(-45deg, rgba(255,255,255,0.05) 25%, transparent 25%);
+            background-size: 50px 50px, 100px 100px, 100px 100px;
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header {
+            text-align: center;
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+        
+        .course-title {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.8rem;
+            color: #bbe1fa;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .batch-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+        
+        .info-box {
+            background: rgba(255,255,255,0.15);
+            padding: 15px;
+            border-radius: 15px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .info-label {
+            font-size: 0.9rem;
+            color: #bbe1fa;
+            margin-bottom: 5px;
+        }
+        
+        .info-value {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #fff;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .content-section {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #ffd700;
+            text-align: center;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(45deg, #ffd700, #ffff00);
+            border-radius: 2px;
+        }
+        
+        .highlight-modules {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .module-card {
+            background: linear-gradient(45deg, #2a5298, #1e3c72);
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 5px solid #ffd700;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+        
+        .module-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        
+        .module-desc {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #bbe1fa;
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .benefit-item:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateX(10px);
+        }
+        
+        .benefit-icon {
+            font-size: 2rem;
+            color: #ffd700;
+        }
+        
+        .benefit-text {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        
+        .side-panel {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            padding: 30px;
+            border-radius: 20px;
+            border: 2px solid rgba(255,255,255,0.2);
+            text-align: center;
+            height: fit-content;
+        }
+        
+        .slogan {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #ffd700;
+            margin-bottom: 25px;
+            line-height: 1.4;
+            font-style: italic;
+        }
+        
+        .iso-badge {
+            background: linear-gradient(45deg, #ffd700, #ffff00);
+            color: #1e3c72;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            display: inline-block;
+            box-shadow: 0 5px 15px rgba(255,215,0,0.3);
+        }
+        
+        .other-courses {
+            text-align: left;
+        }
+        
+        .course-list {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+        
+        .course-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            font-size: 0.9rem;
+            color: #bbe1fa;
+        }
+        
+        .course-list li:before {
+            content: "⚡";
+            color: #ffd700;
+            margin-right: 10px;
+        }
+        
+        .footer {
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            border: 2px solid rgba(255,255,255,0.2);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+        
+        .cta-main {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #ffd700;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .urgency {
+            font-size: 1.3rem;
+            color: #ff6b6b;
+            font-weight: bold;
+            margin-bottom: 25px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .contact-item {
+            background: rgba(255,255,255,0.15);
+            padding: 15px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .contact-label {
+            font-size: 0.9rem;
+            color: #bbe1fa;
+            margin-bottom: 5px;
+        }
+        
+        .contact-value {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #fff;
+        }
+        
+        .future-demand {
+            background: linear-gradient(45deg, rgba(255,107,107,0.2), rgba(255,215,0,0.2));
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #ffd700;
+            margin-bottom: 25px;
+        }
+        
+        .demand-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ffd700;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .demand-text {
+            font-size: 1rem;
+            line-height: 1.6;
+            text-align: center;
+        }
+        
+        .after-training {
+            background: linear-gradient(45deg, rgba(0,255,127,0.2), rgba(0,191,255,0.2));
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #00ff7f;
+            margin-bottom: 25px;
+        }
+        
+        .training-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #00ff7f;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .feeling-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        
+        .feeling-item {
+            text-align: center;
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+        }
+        
+        .feeling-emoji {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .feeling-text {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #fff;
+        }
+        
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(45deg, #25d366, #128c7e);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 15px 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            animation: whatsapp-pulse 2s infinite;
+        }
+        
+        .whatsapp-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(37, 211, 102, 0.6);
+            background: linear-gradient(45deg, #128c7e, #25d366);
+        }
+        
+        @keyframes whatsapp-pulse {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+            }
+            50% { 
+                transform: scale(1.05);
+                box-shadow: 0 15px 35px rgba(37, 211, 102, 0.6);
+            }
+        }
+        
+        .whatsapp-icon {
+            font-size: 1.5rem;
+        }
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .course-title {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.3rem;
+            }
+            
+            .cta-main {
+                font-size: 2rem;
+            }
+            
+            .highlight-modules {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-pattern"></div>
+    
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="course-title">ETAP ADVANCE | TRAINING PROGRAM</div>
+            <div class="subtitle">Power System Analysis & Design Mastery</div>
+            <div class="batch-info">
+                <div class="info-box">
+                    <div class="info-label">START DATE</div>
+                    <div class="info-value">7th September</div>
+                </div>
+                <div class="info-box">
+                    <div class="info-label">DURATION</div>
+                    <div class="info-value">7 Weeks</div>
+                </div>
+                <div class="info-box">
+                    <div class="info-label">SCHEDULE</div>
+                    <div class="info-value">Weekends</div>
+                </div>
+                <div class="info-box">
+                    <div class="info-label">SESSION</div>
+                    <div class="info-value">2.5 Hours</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div>
+                <!-- What We Serve Section -->
+                <div class="content-section">
+                    <div class="section-title">🎯 WHAT WE SERVE</div>
+                    
+                    <!-- Sample Lecture Button -->
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <a href="https://youtu.be/0twZxIQN5Ns?si=sx3UK6n4o69cvOVq" target="_blank" 
+                           style="display: inline-block; background: linear-gradient(45deg, #ff4757, #ff3742); color: white; padding: 15px 30px; border-radius: 50px; text-decoration: none; font-size: 1.1rem; font-weight: bold; box-shadow: 0 8px 25px rgba(255,71,87,0.4); transition: all 0.3s ease;"
+                           onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 15px 35px rgba(255,71,87,0.6)'"
+                           onmouseout="this.style.transform='translateY(0px)'; this.style.boxShadow='0 8px 25px rgba(255,71,87,0.4)'"
+                        >
+                            📹 What do our students say about us?
+                        </a>
+                        <p style="color: #bbe1fa; margin-top: 10px; font-size: 0.9rem;">Get a preview of our interactive ETAP training sessions</p>
+                    </div>
+                    
+                    <div class="highlight-modules">
+                        <div class="module-card">
+                            <div class="module-title">ETAP Overview & Installation</div>
+                            <div class="module-desc">Complete software setup, toolbars, shortcuts, project settings & one-line diagrams</div>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-title">Load Flow & Short Circuit Analysis</div>
+                            <div class="module-desc">IEC 60909 standards, calculation methods, device duty & result analyzer</div>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-title">Protection Coordination Studies</div>
+                            <div class="module-desc">Relay coordination, time-current characteristics, auto coordination & selectivity</div>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-title">Cable Sizing & Transformer Sizing</div>
+                            <div class="module-desc">Cable ampacity, installation types, temperature correction & load variation</div>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-title">Arc Flash Studies (IEEE 1584)</div>
+                            <div class="module-desc">Arc flash analysis, hazard labels, warning creation & safety compliance</div>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-title">Motor Acceleration & Harmonics</div>
+                            <div class="module-desc">Motor starting analysis, harmonic modeling, frequency scan & distortion assessment</div>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-title">DC Studies & Ground Grid Design</div>
+                            <div class="module-desc">DC load flow, DC short circuit analysis & unbalanced system studies</div>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-title">Advanced Features & Reports</div>
+                            <div class="module-desc">Templates, theme editor, system manager, configuration & report generation</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Benefits Section -->
+                <div class="content-section">
+                    <div class="section-title">🚀 CAREER TRANSFORMATION</div>
+                    <div class="benefits-grid">
+                        <div class="benefit-item">
+                            <div class="benefit-icon">💼</div>
+                            <div class="benefit-text">From Site Engineer to Design Engineer</div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">📈</div>
+                            <div class="benefit-text">40-60% Salary Increment</div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">🎯</div>
+                            <div class="benefit-text">Industry-Ready Project Skills</div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">⚡</div>
+                            <div class="benefit-text">Power System Design Mastery</div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">🏭</div>
+                            <div class="benefit-text">Industrial & Utility Expertise</div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">📋</div>
+                            <div class="benefit-text">ISO-Certified Training</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Future Demand Section -->
+                <div class="future-demand">
+                    <div class="demand-title">⚡ FUTURE GRID DEMANDS ETAP EXPERTS</div>
+                    <div class="demand-text">
+                        Smart grids, renewable integration, and industrial automation are creating massive demand for ETAP-skilled engineers. Power utilities, industrial plants, and EPC companies are actively seeking professionals who can design, analyze, and optimize electrical systems using industry-standard tools.
+                    </div>
+                </div>
+
+                <!-- After Training Section -->
+                <div class="after-training">
+                    <div class="training-title">💫 AFTER TRAINING - WHAT YOU'LL FEEL</div>
+                    <div class="feeling-items">
+                        <div class="feeling-item">
+                            <div class="feeling-emoji">😎</div>
+                            <div class="feeling-text">Confidence in Design</div>
+                        </div>
+                        <div class="feeling-item">
+                            <div class="feeling-emoji">🏆</div>
+                            <div class="feeling-text">Industry Recognition</div>
+                        </div>
+                        <div class="feeling-item">
+                            <div class="feeling-emoji">💪</div>
+                            <div class="feeling-text">Project Ownership</div>
+                        </div>
+                        <div class="feeling-item">
+                            <div class="feeling-emoji">🎯</div>
+                            <div class="feeling-text">Career Clarity</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Side Panel -->
+            <div class="side-panel">
+                <div class="iso-badge">ISO CERTIFIED</div>
+                <div class="slogan">
+                    "Never underestimate a working professional who practices self-education with ELP"
+                </div>
+                
+                <div class="other-courses">
+                    <h3 style="color: #ffd700; margin-bottom: 15px; text-align: center;">Other ELP Courses</h3>
+                    <ul class="course-list">
+                        <li>PSCAD (Basic & Advanced)</li>
+                        <li>PSSE (Basic & Advanced)</li>
+                        <li>BESS Design</li>
+                        <li>Substation Design</li>
+                        <li>Distribution System Design</li>
+                        <li>Solar Power System</li>
+                        <li>Revit MEP</li>
+                        <li>QA/QC Electrical</li>
+                        <li>Grid Integration</li>
+                        <li>Green Hydrogen</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer CTA -->
+        <div class="footer">
+            <div class="cta-main">ENROLL NOW</div>
+            <div class="urgency">⚠️ SEATS FILLING FAST - Only 5 Days Left! ⚠️</div>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-label">WhatsApp 1</div>
+                    <div class="contact-value">+91 9286472337</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-label">WhatsApp 2</div>
+                    <div class="contact-value">+91 8430180594</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-label">Website</div>
+                    <div class="contact-value">electricallearningportal.com</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-label">Email</div>
+                    <div class="contact-value">info@electricallearningportal.com</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/+919286472337" target="_blank" class="whatsapp-btn">
+        <span class="whatsapp-icon">💬</span>
+        <span>Chat Now</span>
+    </a>
+</body>
+</html>
